@@ -10,7 +10,7 @@ import Select from "../Select";
 
 export default class LandmarkTool extends Tool {
     constructor(state) {
-        const icon = html`<img src="/assets/Icons_Landmark_grey.svg"alt="Landmark"/>`;
+        const icon = html`<img src="https://deploy-preview-309--districtr-web.netlify.app/assets/Icons_Landmark_grey.svg"alt="Landmark"/>`;
         super("landmark", "Landmark", icon, state.problem.type !== "community");
 
         this.state = state;

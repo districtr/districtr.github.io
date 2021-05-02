@@ -6,8 +6,6 @@ export default class UIStateStore {
         this.state = initialState;
         this.subscribers = [];
 
-        this.DEBUG = Boolean(localStorage.getItem("DEBUG"));
-
         bindAll(["dispatch", "subscribe"], this);
     }
     dispatch(action) {

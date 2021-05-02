@@ -7,7 +7,7 @@ import UndoRedo from "./UndoRedo";
 import Tool from "./Tool";
 
 const icon = (active, colorId, colors) => {
-    return html`<img src="/assets/Icons_Paint_grey.svg" alt="Brush"/>`
+    return html`<img src="https://deploy-preview-309--districtr-web.netlify.app/assets/Icons_Paint_grey.svg" alt="Brush"/>`
 };
 
 export default class BrushTool extends Tool {

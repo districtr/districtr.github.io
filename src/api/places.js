@@ -6,7 +6,9 @@ export function listPlaces() {
         client
             .get("/places/")
             .then(handleResponse({ 200: resp => resp.json() })),
-        fetch("./assets/data/response.json").then(resp => resp.json())
+        fetch("https://districtr.org/assets/data/response.json").then(resp =>
+            resp.json()
+        )
     ]).then(([places, mockedPlaces]) => {
         const mockedPlacesByName = mockedPlaces.reduce(
             (table, place) => ({ ...table, [place.name]: place }),

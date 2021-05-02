@@ -89,10 +89,8 @@ function assign(state, feature, partId, updateData) {
         partId = [partId];
     }
     if (updateData) {
-        console.log('update data');
         state.update(feature, partId);
     } else {
-        console.log('dont update data');
     }
     partId.forEach((p) => {
         if (state.parts[p]) {

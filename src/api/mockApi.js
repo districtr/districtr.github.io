@@ -5,10 +5,10 @@ export function listPlaces(placeID, stateName) {
         stateName = lookupState[placeID];
     }
     if (placeID) {
-        return fetch("/assets/data/modules/" + stateName + ".json").then(resp => resp.json()).then((data) => {
+        return fetch("https://deploy-preview-309--districtr-web.netlify.app/assets/data/modules/" + stateName + ".json").then(resp => resp.json()).then((data) => {
           return data.filter(d => d.id === placeID);
         });
     } else {
-        return fetch("/assets/data/modules/" + stateName + ".json").then(resp => resp.json());
+        return fetch("https://deploy-preview-309--districtr-web.netlify.app/assets/data/modules/" + stateName + ".json").then(resp => resp.json());
     }
 }

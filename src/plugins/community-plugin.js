@@ -16,11 +16,15 @@ import { savePlanToStorage } from "../routes";
 export default function CommunityPlugin(editor) {
     const { state, mapState } = editor;
 
-    addLocationSearch(mapState);
+    let tab, about;
+    if (editor.store) {
+        // skip this on embed
+        addLocationSearch(mapState);
 
-    const tab = new Tab("community", "Drawing", editor.store);
-    const about = new AboutSection(editor);
-    tab.addRevealSection("Areas of Interest", about.render);
+        tab = new Tab("community", "Drawing", editor.store);
+        about = new AboutSection(editor);
+        tab.addRevealSection("Areas of Interest", about.render);
+    }
 
     let lm = state.place.landmarks;
     if (!lm.source && !lm.type) {
@@ -63,23 +67,18 @@ export default function CommunityPlugin(editor) {
           state.render();
         });
     }
+
+    if (!editor.store) {
+      // embed
+      return;
+    }
+
     lmo = new LandmarkOptions(
         state.map.landmarks,
         lm.data.features,
         state.map
     );
     tab.addRevealSection("Important Places", lmo.render.bind(lmo));
-
-    // tab.addRevealSection("Help?", () => html`<ul class="option-list">
-    //                                             <li class="option-list__item">
-    //                                             Prompting Questions:
-    //                                             <ul>
-    //                                                 <li>What unites this community?</li>
-    //                                                 <li>Who lives here?</li>
-    //                                                 <li>Are there important places or traditions?</li>
-    //                                             </ul>
-    //                                             </li>`,
-    //                      {isOpen: false, activePartIndex: 0})
 
     const evaluationTab = new Tab("population", "Evaluation", editor.store);
     const populationPivot = PivotTable(

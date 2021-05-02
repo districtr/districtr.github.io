@@ -1,0 +1,18 @@
+@import "base";
+@import "colors";
+@import "headings";
+@import "map";
+@import "links";
+@import "shadows";
+@import "components/toolbar";
+@import "components/charts";
+@import "components/tooltip";
+@import "components/places";
+@import "components/button";
+@import "components/header-with-toggle";
+
+.districtr__embed-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+}

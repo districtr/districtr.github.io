@@ -10,7 +10,7 @@ export default class InspectTool extends Tool {
         super(
             "inspect",
             "Inspect",
-            html`<img src="/assets/Icons_Inspect_grey.svg" alt="Inspect"/>`
+            html`<img src="https://deploy-preview-309--districtr-web.netlify.app/assets/Icons_Inspect_grey.svg" alt="Inspect"/>`
         );
 
         this.columnSets = [].concat(columnSets.filter(lyr => lyr.subgroups.length > 1));

@@ -1,6 +1,5 @@
 import { html, render } from "lit-html";
 import { MapState } from "../map";
-import State from "../models/State";
 import {
     loadPlanFromURL,
     loadPlanFromJSON,
@@ -10,12 +9,14 @@ import {
     savePlanToStorage
 } from "../routes";
 import Editor from "../models/Editor";
-import ToolsPlugin from "../plugins/tools-plugin";
+import { assignUnitsAsTheyLoad } from "../models/lib/assign";
+import State from "../models/State";
+import CommunityPlugin from "../plugins/community-plugin";
+import DataLayersPlugin from "../plugins/data-layers-plugin";
 import EvaluationPlugin from "../plugins/evaluation-plugin";
 import PopulationBalancePlugin from "../plugins/pop-balance-plugin";
-import DataLayersPlugin from "../plugins/data-layers-plugin";
-import CommunityPlugin from "../plugins/community-plugin";
 import MultiLayersPlugin from "../plugins/multi-layers-plugin";
+import ToolsPlugin from "../plugins/tools-plugin";
 import { spatial_abilities, boundsOfGJ } from "../utils";
 
 function getPlugins(context) {
@@ -63,7 +64,7 @@ function getPlanContext() {
             // eslint-disable-next-line no-console
             console.error(e);
         });
-    } else if (!["edit", "coi", "plan"].includes(finalURLpage.toLowerCase())) {
+    } else if (!["edit", "coi", "plan", "embedded"].includes(finalURLpage.toLowerCase())) {
         // remove token; save a new plan
         localStorage.removeItem("districtr_token_" + finalURLpage);
         // load JSON plan from DB

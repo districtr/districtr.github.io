@@ -11,10 +11,6 @@ export default class Editor {
         this.state = state;
 
         let activeTab = "criteria";
-        if (localStorage) {
-            activeTab = localStorage.getItem("jsonload_viewstate") || activeTab;
-            localStorage.removeItem("jsonload_viewstate");
-        }
 
         this.store = new UIStateStore(reducer, {
             toolbar: { activeTab: activeTab, dropdownMenuOpen: false },

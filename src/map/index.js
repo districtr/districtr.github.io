@@ -34,23 +34,6 @@ class MapSliderControl {
             this.container.appendChild(btn2);
         }
 
-        if (localStorage.getItem("slide_layer") === "active" || window.location.href.includes("slider")) {
-            localStorage.setItem("slide_layer", "active");
-            if (this.activated) {
-                btn2.className = "active";
-                btn1.onclick = () => {
-                    localStorage.setItem("slide_layer", "off");
-                    window.location.href = window.location.href.replace("slider=true", "").replace("slider", "");
-                };
-            }
-        } else if (this.activated) {
-            btn1.className = "active";
-            btn2.onclick = () => {
-                let joiner = window.location.search ? "&" : "?";
-                window.location.href = window.location.href + joiner + "slider=true";
-            };
-        }
-
         return this.container;
     }
     onRemove(){
@@ -79,31 +62,12 @@ export class MapState {
 
         // Georgia specific
         let activated = false;
-        if (localStorage.getItem("slide_layer") === "active") {
-            activated = true;
-            this.swipemap = new mapboxgl.Map({
-                container: "swipemap",
-                style: mapStyle,
-                attributionControl: false,
-                center: [-86.0, 37.83],
-                zoom: 3,
-                pitchWithRotate: false,
-                dragRotate: false,
-                preserveDrawingBuffer: true,
-                dragPan: true,
-                touchZoomRotate: true,
-                ...options
-            });
-
-            this.comparer = new MapboxCompare(this.map, this.swipemap, "#comparison-container", {});
-            this.comparer.setSlider(10000);
-            window.mapslide = this.comparer;
-        } else {
+        if (document.getElementById("swipemap")) {
             document.getElementById("swipemap").style.display = "none";
-            this.swipemap = null;
-            this.comparer = null;
-            window.mapslide = null;
         }
+        this.swipemap = null;
+        this.comparer = null;
+        window.mapslide = null;
 
         activated = activated || (options && options.bounds && options.bounds[0][0] === -85.6052 && options.bounds[0][1] === 30.3558);
         const sliderOpt = new MapSliderControl(activated);

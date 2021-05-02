@@ -75,7 +75,7 @@ export default function ToolsPlugin(editor) {
     }
     toolbar.selectTool("pan");
     toolbar.setMenuItems(getMenuItems(editor.state));
-    toolbar.setState(state);
+    // toolbar.setState(editor.state);
 
     hotkeys.filter = ({ target }) => {
         return (

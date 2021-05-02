@@ -5,6 +5,7 @@ const routes = {
     "/": "/",
     "/new": "/new",
     "/edit": "/edit",
+    "/embedded": "/embedded",
     "/COI": "/COI",
     "/plan": "/plan",
     "/register": "/register",
@@ -52,7 +53,9 @@ export function savePlanToStorage({
         description,
         parts
     };
-    localStorage.setItem("savedState", JSON.stringify(state));
+    if (!window.location.href.includes("embed")) {
+        localStorage.setItem("savedState", JSON.stringify(state));
+    }
 }
 
 export function savePlanToDB(state, eventCode, planName, callback, noNewScreenshot) {
@@ -107,7 +110,9 @@ export function savePlanToDB(state, eventCode, planName, callback, noNewScreensh
 }
 
 export function getContextFromStorage() {
-    const savedState = localStorage.getItem("savedState");
+    const savedState = window.location.href.includes("embed")
+        ? null
+        : localStorage.getItem("savedState");
     let state;
     try {
         state = JSON.parse(savedState);
