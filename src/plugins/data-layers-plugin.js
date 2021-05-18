@@ -519,6 +519,83 @@ export default function DataLayersPlugin(editor) {
         addCurrentDistricts(tab, state);
     }
 
+    // alaska plan overlay
+    if (state.place.id === 'alaska') {
+        // fetch all five plans
+        var planLayers = [];
+        fetch(`/assets/current_districts/ak-overlays/plan1.geojson`).then(res => res.json()).then((plan1) => {
+        fetch(`/assets/current_districts/ak-overlays/plan2.geojson`).then(res => res.json()).then((plan2) => {
+        fetch(`/assets/current_districts/ak-overlays/plan3.geojson`).then(res => res.json()).then((plan3) => {
+        fetch(`/assets/current_districts/ak-overlays/plan4.geojson`).then(res => res.json()).then((plan4) => {
+        fetch(`/assets/current_districts/ak-overlays/plan5.geojson`).then(res => res.json()).then((plan5) => {
+            
+            // load into the tab
+            let ps = [plan1, plan2, plan3, plan4, plan5]
+            let colors = ['#000', '#E21D2D', '#90E21D', '#1DE2D2', '#6F1DE2']
+            for (let i = 0; i < 5; i++) {
+                var name = 'plan' + (i+1);
+                state.map.addSource(name, {
+                    type: 'geojson',
+                    data: ps[i]
+                });
+
+                planLayers.push(new Layer(state.map,
+                    {
+                        id: name,
+                        source: name,
+                        type: 'line',
+                        paint: { "line-color": colors[i], "line-width": 2, "line-opacity": 0 }
+                    },
+                    addBelowLabels
+                ));
+            }
+        })})})})}); // closing all the fetch calls
+        
+        tab.addSection(() => html`
+        <h4>Potential Plans</h4>
+        <li>
+            ${toggle(`Plan 1`, false, checked =>
+                planLayers[0].setOpacity(
+                    checked ? 1 : 0
+                ),
+                "plan1-visible"
+            )}
+        </li>
+        <li>
+            ${toggle(`Plan 2`, false, checked =>
+                planLayers[1].setOpacity(
+                    checked ? 1 : 0
+                ),
+                "plan2-visible"
+            )}
+        </li>
+        <li>
+            ${toggle(`Plan 3`, false, checked =>
+                planLayers[2].setOpacity(
+                    checked ? 1 : 0
+                ),
+                "plan3-visible"
+            )}
+        </li>
+        <li>
+            ${toggle(`Plan 4`, false, checked =>
+                planLayers[3].setOpacity(
+                    checked ? 1 : 0
+                ),
+                "plan4-visible"
+            )}
+        </li>
+        <li>
+            ${toggle(`Plan 5`, false, checked =>
+                planLayers[4].setOpacity(
+                    checked ? 1 : 0
+                ),
+                "plan5-visible"
+            )}
+        </li>
+        `);
+    }
+
     tab.addSection(() => html`<h4>Demographics</h4>`)
 
     let coalitionOverlays = [];
