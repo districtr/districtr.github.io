@@ -103,6 +103,35 @@ export function renderAboutModal({ place, unitsRecord }, userRequested) {
     render(template, target);
 }
 
+export function renderPortalAboutModal({ place, plan, unitsRecord}, userRequested) {
+    const target = document.getElementById("modal");
+    const type = plan.problem.type === "community" ? "coi" : "districts";
+    console.log(type);
+    const template = until(
+        fetch(`/assets/about/${place.id}/portal-${type}.html`)
+            .then((r) => {
+                if (r.status === 200) {
+                    return r.text();
+                } else if (userRequested) {
+                    return "No About Page exists for this project";
+                } else {
+                    throw new Error(r.statusText);
+                }
+            })
+            .then(
+                content => renderModal(
+                    html`
+                        <h2 class="media__title">${place.name} - Drawing ${plan.problem.name ? plan.problem.name + " Districts" : "Communities of Interest"}</h2>
+                        <h3 class="media__subtitle">Currently drawing with ${unitsRecord.name}.</h3>
+                        ${html([content])}
+                    `
+                )
+            ),
+        ""
+    );
+    render(template, target);
+}
+
 export function renderVRAAboutModal(place) {
     const target = document.getElementById("modal");
     const template = until(

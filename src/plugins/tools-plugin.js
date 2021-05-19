@@ -11,7 +11,7 @@ import { HoverWithRadius } from "../map/Hover";
 import NumberMarkers from "../map/NumberMarkers";
 import ContiguityChecker from "../map/contiguity";
 import VRAEffectiveness from "../map/vra_effectiveness"
-import { renderVRAAboutModal, renderAboutModal, renderSaveModal, renderModal } from "../components/Modal";
+import { renderVRAAboutModal, renderAboutModal,renderPortalAboutModal, renderSaveModal, renderModal } from "../components/Modal";
 import { navigateTo, savePlanToStorage, savePlanToDB } from "../routes";
 import { download, spatial_abilities } from "../utils";
 import { html, render } from "lit-html";
@@ -105,20 +105,21 @@ export default function ToolsPlugin(editor) {
         toolbar.selectTool("inspect");
     });
 
-    // show about modal on startup by default
+    // show about modal on startup for portal plans.
 
-    // exceptions if you last were on this map, or set 'dev' in URL
-    // try {
-    //     if ((window.location.href.indexOf("dev") === -1) &&
-    //         (!localStorage || localStorage.getItem("lastVisit") !== state.place.id)
-    //     ) {
-    //         renderAboutModal(editor.state);
-    //         localStorage.setItem("lastVisit", state.place.id);
-    //     }
-    // } catch(e) {
-    //     // likely no About page exists - silently fail to console
-    //     console.error(e);
-    // }
+    try {
+        // if ((window.location.href.indexOf("dev") === -1) &&
+        //     (!localStorage || localStorage.getItem("lastVisit") !== state.place.id)
+        // ) 
+        if (window.location.href.includes("portal")){
+            console.log(editor.state);
+            renderPortalAboutModal(editor.state);
+            // localStorage.setItem("lastVisit", state.place.id);
+        }
+    } catch(e) {
+        // likely no About page exists - silently fail to console
+        console.error(e);
+    }
 }
 
 function exportPlanAsJSON(state) {
