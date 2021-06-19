@@ -1,4 +1,4 @@
-# Districtr
+# Districtr by Todd 
 
 [![Build Status](https://travis-ci.com/districtr/districtr.svg?branch=master)](https://travis-ci.com/districtr/districtr)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/61b9c7cf-9bc3-45b1-9476-22437ce398cd/deploy-status)](https://app.netlify.com/sites/districtr-web/deploys)
