@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import Parameter from "./Parameter";
 import { savePlanToStorage } from "../routes";
-import { bindAll } from "../utils";
+import { bindAll, spatial_abilities } from "../utils";
 import { colorScheme } from "../colors";
 
 export default class AboutSection {
@@ -25,6 +25,47 @@ export default class AboutSection {
         this.name = this.part.name || "";
         this.description = this.part.description || "";
         document.getElementsByClassName('custom-select')[0].classList.toggle('open');
+
+        if (spatial_abilities(this.state.place.id).find_unpainted) {
+          let matching = Object.keys(this.state.plan.assignment).filter(geo => this.state.plan.assignment[geo] === index || (this.state.plan.assignment[geo].length && this.state.plan.assignment[geo].includes(index)));
+          if (matching.length) {
+            const sep = (this.state.place.id === "louisiana") ? ";" : ",";
+            fetch("//mggg.pythonanywhere.com/findLimits?place=" + this.state.place.id + `&ids=${matching.slice(0, 100).join(sep)}`)
+            .then((res) => res.json())
+            .catch((e) => console.error(e))
+            .then((d) => {
+              const border = JSON.parse(d[0]);
+              this.state.map.getSource("coi_focus").setData(border);
+
+              // console.log(border);
+              let minx = 180, maxx = -180, miny = 90, maxy = -90;
+              const getBounds = (coords) => {
+                if (!coords.length) {
+                  return;
+                }
+                if (typeof coords[0] === 'object') {
+                  coords.forEach((c) => {
+                    getBounds(c);
+                  });
+                } else {
+                  coords.forEach((c) => {
+                    minx = Math.min(minx, coords[0]);
+                    maxx = Math.max(maxx, coords[0]);
+                    miny = Math.min(miny, coords[1]);
+                    maxy = Math.max(maxy, coords[1]);
+                  });
+                }
+              };
+              const bounds = getBounds(border.coordinates);
+              // console.log([minx, maxx, miny, maxy]);
+              this.state.map.fitBounds([
+                [minx, miny],
+                [maxx, maxy]
+              ]);
+            });
+          }
+        }
+
         this.renderCallback();
     }
     setName(name) {

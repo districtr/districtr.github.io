@@ -283,5 +283,28 @@ export function addLayers(map, swipemap, parts, tilesets, layerAdder, borderId, 
         });
     }
 
+    if (spatial_abilities(borderId).find_unpainted) {
+      map.addSource('coi_focus', {
+          type: 'geojson',
+          data: {
+            type: "FeatureCollection",
+            features: []
+          }
+      });
+      new Layer(
+          map,
+          {
+              id: "coi_focus",
+              source: "coi_focus",
+              type: "line",
+              paint: {
+                  "line-color": "#000",
+                  "line-width": 5,
+                  "line-opacity": 0.8
+              }
+          }
+      )
+    }
+
     return { units, unitsBorders, coiunits, coiunits2, points, counties, bg_areas, precincts, new_precincts, tracts };
 }
