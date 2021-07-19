@@ -455,6 +455,114 @@
             "sourceLayer": "chicago_community_areas_points"
           }
         ]
+      },
+      {
+        "id": "blocks",
+        "name": "Blocks",
+        "unitType": "Blocks",
+        "columnSets": [
+          {
+            "type": "population",
+            "name": "Population",
+            "total": {
+              "key": "p20_totpop",
+              "name": "Total population",
+              "sum": 2686394,
+              "min": 0,
+              "max": 8677
+            },
+            "subgroups": [
+              {
+                "key": "p20_nh_wh",
+                "name": "White population",
+                "sum": 889444,
+                "min": 0,
+                "max": 1984
+              },
+              {
+                "key": "p20_nh_aa",
+                "name": "Black population",
+                "sum": 787967,
+                "min": 0,
+                "max": 5563
+              },
+              {
+                "key": "p20_h_tot",
+                "name": "Hispanic population",
+                "sum": 779164,
+                "min": 0,
+                "max": 2343
+              },
+              {
+                "key": "p20_nh_asi",
+                "name": "Asian population",
+                "sum": 173850,
+                "min": 0,
+                "max": 1011
+              },
+              {
+                "key": "p20_nh_ai",
+                "name": "American Indian population",
+                "sum": 2944,
+                "min": 0,
+                "max": 113
+              },
+              {
+                "key": "p20_nh_pac",
+                "name": "Native Hawaiian and Pacific Islander population",
+                "sum": 353,
+                "min": 0,
+                "max": 7
+              },
+              {
+                "key": "p20_nh_tom",
+                "name": "Two or more races",
+                "sum": 47355,
+                "min": 0,
+                "max": 214
+              },
+              {
+                "key": "p20_nh_oth",
+                "name": "Other races",
+                "sum": 5123,
+                "min": 0,
+                "max": 68
+              }
+            ]
+          }
+        ],
+        "idColumn": {
+          "name": "2020 Census Block",
+          "key": "GEOID"
+        },
+        "bounds": [
+          [
+            -87.9401,
+            41.6443
+          ],
+          [
+            -87.5237,
+            42.0231
+          ]
+        ],
+        "tilesets": [
+          {
+            "type": "fill",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://kaytwo.chicago_blocks"
+            },
+            "sourceLayer": "chicago_blocks"
+          },
+          {
+            "type": "circle",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://kaytwo.chicago_blocks_points"
+            },
+            "sourceLayer": "chicago_blocks_points"
+          }
+        ]
       }
     ],
     "name": "Chicago",
@@ -464,7 +572,7 @@
       {
         "numberOfParts": 50,
         "pluralNoun": "Wards",
-        "units": ["precincts"],
+        "units": ["precincts", "blocks"],
         "name": "City Council"
       },
       {
