@@ -1,4 +1,5 @@
 // planModel.js
+import * as sasl from 'saslprep';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
