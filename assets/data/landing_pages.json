@@ -2233,7 +2233,7 @@
     "code": "RI",
     "modules": [
       {"name": "Statewide", "ids": ["rhode_island"], "default": "true", "id": "state"},
-      {"name": "Cities", "ids": ["providence_ri"], "id": "loc"}
+      {"name": "Cities", "ids": ["providence_ri", "cranston_ri"], "id": "loc"}
     ],
     "sections": [
       {

@@ -632,5 +632,124 @@
         "name": "City Council"
       }
     ]
+  },
+  {
+    "name": "Cranston",
+    "state": "Rhode Island",
+    "id": "cranston_ri",
+    "units": [
+      {
+        "id": "blocks",
+        "name": "Blocks",
+        "unitType": "Blocks",
+        "columnSets": [
+          {
+            "type": "population",
+            "name": "Population",
+            "total": {
+              "key": "TOTPOP",
+              "name": "Total population",
+              "sum": 80387,
+              "min": 0,
+              "max": 1043
+            },
+            "subgroups": [
+              {
+                "key": "NH_WHITE",
+                "name": "White population",
+                "sum": 62055,
+                "min": 0,
+                "max": 880
+              },
+              {
+                "key": "NH_BLACK",
+                "name": "Black population",
+                "sum": 3654,
+                "min": 0,
+                "max": 278
+              },
+              {
+                "key": "HISP",
+                "name": "Hispanic population",
+                "sum": 8709,
+                "min": 0,
+                "max": 289
+              },
+              {
+                "key": "NH_ASIAN",
+                "name": "Asian population",
+                "sum": 4110,
+                "min": 0,
+                "max": 86
+              },
+              {
+                "key": "NH_AMIN",
+                "name": "American Indian population",
+                "sum": 200,
+                "min": 0,
+                "max": 7
+              },
+              {
+                "key": "NH_NHPI",
+                "name": "Native Hawaiian and Pacific Islander population",
+                "sum": 33,
+                "min": 0,
+                "max": 10
+              },
+              {
+                "key": "NH_OTHER",
+                "name": "Other races",
+                "sum": 242,
+                "min": 0,
+                "max": 9
+              }
+            ]
+          }
+        ],
+        "idColumn": {
+          "name": "Census GEOID",
+          "key": "GEOID10"
+        },
+        "nameColumn": {
+          "name": "Block Name",
+          "key": "NAME10"
+        },
+        "bounds": [
+          [
+            -71.5596,
+            41.7301
+          ],
+          [
+            -71.3837,
+            41.807
+          ]
+        ],
+        "tilesets": [
+          {
+            "type": "fill",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://districtr.cranston_ri_blocks"
+            },
+            "sourceLayer": "cranston_ri_blocks"
+          },
+          {
+            "type": "circle",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://districtr.cranston_ri_blocks_points"
+            },
+            "sourceLayer": "cranston_ri_blocks_points"
+          }
+        ]
+      }
+    ],
+    "districtingProblems": [
+      {
+        "name": "City Council",
+        "numberOfParts": 6,
+        "pluralNoun": "City Council and Mayoral Wards"
+      }
+    ]
   }
 ]
