@@ -57,6 +57,8 @@ solano_county: 'California',
   'galeo': 'Georgia',
   ourmaps: 'Nebraska',
   marinco: 'California',
+  kingsco: 'California',
+  mercedco: 'California',
 };
 
 const validEventCodes = {
@@ -108,6 +110,8 @@ const validEventCodes = {
   sbcounty: 'ca_santabarbara',
   ourmaps: 'nebraska',
   marinco: 'ca_marin',
+  kingsco: 'ca_kings',
+  mercedco: 'ca_merced',
 };
 
 const blockPlans = {
@@ -176,7 +180,9 @@ const hybrid_events = [
   'saccountymap',
   'sonomaco',
   'pasadena2021',
-  'ca_marin',
+  'marinco',
+  'kingsco',
+  'mercedco',
   'goleta',
   'sbcounty',
   'ourmaps',
@@ -352,6 +358,26 @@ out after you've clicked &quot;Save&quot; to share the map.</strong></p>\
      <p>To let the County know about your community and what brings it together, \
   share your map and your story using this tool now.</p>\
      <p><strong>To display your map on this page, be sure the tag &quot;SBCounty&quot; is filled \
+  out after you've clicked &quot;Save&quot; to share the map.</strong></p>",
+  kingsco: "<p>Welcome to the Districtr Community of Interest public mapping tool for Kings County's 2021 supervisorial redistricting.<p>\
+     <p>As part of the redistricting process, the California FAIR MAPS Act includes \
+     neighborhoods and “Communities of Interest” as important considerations. California law defines Communities of Interest as “a \
+     population that shares common social or economic interests that should \
+     be included within a single district for purposes of its effective and fair \
+     representation.”</p>\
+     <p>To let the County know about your community and what brings it together, \
+  share your map and your story using this tool now.</p>\
+     <p><strong>To display your map on this page, be sure the tag &quot;KingsCO&quot; is filled \
+  out after you've clicked &quot;Save&quot; to share the map.</strong></p>",
+  mercedco: "<p>Welcome to the Districtr Community of Interest public mapping tool for Merced County's 2021 supervisorial redistricting.<p>\
+     <p>As part of the redistricting process, the California FAIR MAPS Act includes \
+     neighborhoods and “Communities of Interest” as important considerations. California law defines Communities of Interest as “a \
+     population that shares common social or economic interests that should \
+     be included within a single district for purposes of its effective and fair \
+     representation.”</p>\
+     <p>To let the County know about your community and what brings it together, \
+  share your map and your story using this tool now.</p>\
+     <p><strong>To display your map on this page, be sure the tag &quot;MercedCo&quot; is filled \
   out after you've clicked &quot;Save&quot; to share the map.</strong></p>",
   ourmaps: 'Welcome to the event page for OurMaps!',
 };
