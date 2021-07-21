@@ -1,5 +1,5 @@
 import { html, render, directive } from "lit-html";
-import { listPlacesForState, getUnits } from "../components/PlacesList";
+import { listPlacesForState, getUnits, getAllUnits } from "../components/PlacesList";
 import { startNewPlan } from "../routes";
 import { until } from "lit-html/directives/until";
 
@@ -370,7 +370,17 @@ const problemTypeInfo = {
 
 const placeItemsTemplate = (places, onClick) => {
     const showAll = document.getElementById("custom") && document.getElementById("custom").checked;
-    return places.map(place =>
+    
+    let num_hidden = places.map(place => place.districtingProblems.filter(problem => problem.hideOnDefault)).reduce((items, item) => [...items, ...item], []).length ||
+                        places.map(place => place.districtingProblems.filter(problem => !problem.hideOnDefault)
+                        .map(problem => getAllUnits(place, problem).filter(u => u.hideOnDefault)))
+                        .reduce((items, item) => [...items, ...item], []) // have to flatten twice I guess
+                        .reduce((items, item) => [...items, ...item], []).length;
+    
+    console.log(showAll);
+    console.log(num_hidden);
+
+    return places.map(place => 
         place.districtingProblems
         .sort((a, b) => {
             // change so Reapportioned always comes first
@@ -389,7 +399,7 @@ const placeItemsTemplate = (places, onClick) => {
         })
         .filter(problem => showAll || !problem.hideOnDefault)
         .map(problem =>
-            getUnits(place, problem)
+            getAllUnits(place, problem)
             .filter(unit => showAll || !unit.hideOnDefault)
             .map(
                 units => 
@@ -434,13 +444,12 @@ const placeItemsTemplate = (places, onClick) => {
         ))
         .reduce((items, item) => [...items, ...item], [])
         .concat([
-          places.filter(p => ["california", "colorado", "illinois", "newyork", "northcarolina", "ohio", "oregon", "pennsylvania", "wisconsin", "florida", "michigan", "minnesota", "olmsted", "rochestermn", "westvirginia", "texas"].includes(p.id)).length && !showAll  
-          ? html`<li>
-            <div style="padding-top:30px">
-                <input type="checkbox" id="custom" name="custom-selection">
-                <label for="custom">Show All</label>
-            </div>
-          </li>` 
+            num_hidden ? html`<li>
+                <div style="padding-top:30px">
+                    <input type="checkbox" id="custom" name="custom-selection">
+                    <label for="custom">${showAll ? "Show Less" : "Show All"}</label>
+                </div>
+            </li>`
           : ""
         ]);
     };
@@ -478,7 +487,7 @@ const customPlaceItemsTemplate = (places, onClick) =>
             )
         ))
         .reduce((items, item) => [...items, ...item], []).concat([
-          html`<li>
+            html`<li>
             <div style="padding-top:30px">
                 <input type="checkbox" id="custom" name="custom-selection">
                 <label for="custom">Customize</label>

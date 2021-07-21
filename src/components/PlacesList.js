@@ -53,10 +53,30 @@ export function PlacesListForState(
     );
 }
 
-export function getUnits(place, problem, show_just_communities = false, eventCode = false) {
+export function getAllUnits(place, problem) {
+    return getUnits(place, problem, false, false, true);
+}
+
+export function getUnits(place, problem, show_just_communities = false, eventCode = false, allUnits = false) {
     if (problem.units) {
         return place.units.filter(units => problem.units.includes(units.id));
     }
+    // added getAll argument so we can get even non-limited ones
+    // for the "Show All" button
+    if (allUnits) {
+        return place.units.sort((a,b) => {
+            const x = a.name.toLowerCase();
+            const y = b.name.toLowerCase();
+            if (x < y) {
+                return -1;
+            }
+            if (x > y) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
     return place.units.filter((unitType) => eventCode || !unitType.limit || (unitType.limit === "community" && show_just_communities))
         .sort((a, b) => {
 
