@@ -1142,7 +1142,7 @@
     "state": "Massachusetts",
     "code": "MA",
     "modules": [
-      {"name": "Statewide", "ids": ["ma_vra2"], "default": "true", "id": "state"},
+      {"name": "Statewide", "ids": ["ma_vra2", "ma"], "default": "true", "id": "state"},
       {"name": "Cities", "ids": ["lowell"], "id": "loc"}],
     "sections": [
       {

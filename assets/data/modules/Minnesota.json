@@ -6,7 +6,7 @@
     "districtingProblems": [
       {
         "name": "Congress",
-        "numberOfParts": 8,
+        "numberOfParts": 7,
         "pluralNoun": "Congressional Districts"
       },
       {
@@ -24,6 +24,7 @@
       {
         "id": "precincts",
         "name": "Precincts",
+        "hideOnDefault": true,
         "unitType": "Precincts",
         "hideOnDefault": true,
         "columnSets": [

@@ -1262,6 +1262,7 @@
       {
         "id": "precincts_12_16",
         "name": "Precincts, 2012-2016",
+        "hideOnDefault": true,
         "unitType": "Precincts",
         "columnSets": [
           {
