@@ -2,7 +2,7 @@ import Layer from "./Layer";
 import { colorScheme } from "../colors";
 import { spatial_abilities } from "../utils";
 
-export default function NumberMarkers(state, brush) {
+export default function NumberMarkers(state, brush, old=false) {
     const spacer = String.fromCharCode(8202) + String.fromCharCode(8202);
 
     state.numbers = [];
@@ -152,6 +152,48 @@ export default function NumberMarkers(state, brush) {
                 if (filterOdds < 1) {
                     markers[district_num] = markers[district_num].filter(() => (Math.random() < filterOdds));
                 }
+                
+                const units = state.unitsRecord.unitType;
+                const stateName = state.place.state;
+                const assign = markers[district_num];
+                // console.log(assign);
+                // console.log(stateName);
+                // console.log(units);
+                fetch("https://gvd4917837.execute-api.us-east-1.amazonaws.com/district_center", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "state": stateName,
+                        "units": units,
+                        "dist_id": district_num,
+                        "assignment": assign})
+                })
+                .then((res) => res.json())
+                .catch((e) => console.error(e))
+                .then((data) => {
+                    if (numberMarkers[district_num]) {
+                        numberMarkers[district_num].geometry.coordinates = data["coord"];
+                    } else {
+                        numberMarkers[district_num] = {
+                            type: "Feature",
+                            geometry: { type: "Point", coordinates: data["coord"] }
+                        };
+                    }
+                    map.getSource("number_source_" + district_num).setData(numberMarkers[district_num]);
+                    
+                })
+            } 
+            
+            function check_district_old(d_index) {
+                // up to 100 random GEOIDs in GET url
+                // have requested help to POST
+                let district_num = moveMarkers[d_index];
+                let filterOdds = 100 / markers[district_num].length;
+                if (filterOdds < 1) {
+                    markers[district_num] = markers[district_num].filter(() => (Math.random() < filterOdds));
+                }
                 const serverurl = `//mggg.pythonanywhere.com/findCenter?place=${placeID}&`;
                     // : `https://mggg-states.subzero.cloud/rest/rpc/merged_${placeID}?`
                 fetch(`${serverurl}ids=${markers[district_num].join(sep)}`).then(res => res.json()).then((centroid) => {
@@ -175,8 +217,10 @@ export default function NumberMarkers(state, brush) {
                     map.getSource("number_source_" + district_num).setData(numberMarkers[district_num]);
                 }).catch(() => {console.log("Fetch failed")});
             }
+
             for (let d_index = 0; d_index < moveMarkers.length; d_index++) {
-                check_district(d_index);
+                console.log("old", old);
+                old ? check_district_old(d_index) : check_district(d_index);
             }
 
             // remove a number marker if the district has no units left on the map
